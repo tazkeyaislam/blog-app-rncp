@@ -1,0 +1,4 @@
+# Ignore node_modules and environment files
+BACKEND/node_modules/
+BACKEND/.env
+FRONTEND/node_modules/

@@ -1,0 +1,38 @@
+<div class="login-container">
+  <div class="login-left">
+    <h1>Exam Mastery Hub</h1>
+    <p>
+      Unleash Your Academic Success with Exam Mastery Hub's Exam Excellence
+      Platform
+    </p>
+  </div>
+  <div class="login-right">
+    <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+      <div fxFlex fxLayout="column">
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+            <span *ngIf="loginForm.controls.email.errors.required">This field is required</span>
+            <span *ngIf="loginForm.controls.email.errors.pattern">This field is invalid</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+            <span *ngIf="loginForm.controls.password.errors.required">This field is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="!(loginForm.valid && loginForm.dirty)" type="submit">
+          Login
+        </button>
+        <button mat-button color="accent" class="home-link" (click)="onBack()">
+          <span>Back</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

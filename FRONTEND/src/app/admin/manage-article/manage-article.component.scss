@@ -1,0 +1,39 @@
+/* styles.css or component-specific styles */
+.mat-form-field {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+mat-card {
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* Deep selectors to change the color of the mat-slide-toggle thumb */
+::ng-deep .mat-slide-toggle.active-status .mat-slide-toggle-thumb {
+    background-color: green !important;
+}
+
+::ng-deep .mat-slide-toggle.inactive-status .mat-slide-toggle-thumb {
+    background-color: red !important;
+}
+
+@media (max-width: 768px) {
+
+    .mat-header-cell,
+    .mat-cell {
+        padding: 8px;
+    }
+
+    .mat-form-field {
+        margin-bottom: 15px;
+    }
+
+    button[mat-icon-button] {
+        min-width: 36px;
+        min-height: 36px;
+    }
+}

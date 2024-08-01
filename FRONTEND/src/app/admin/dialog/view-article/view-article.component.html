@@ -1,0 +1,21 @@
+<mat-toolbar>
+    <mat-toolbar-row fxLayout="row">
+        <span> View Article</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <div>
+        Title: {{article?.title}}
+        <br>
+        Category: {{article?.categoryName}}
+        <br>
+        Status: {{article?.status}}
+    </div>
+    <mat-divider></mat-divider>
+    <div [innerHTML]="article.content | sanitizeHtml"></div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions> 

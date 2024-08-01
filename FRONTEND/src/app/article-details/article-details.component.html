@@ -1,0 +1,19 @@
+<mat-toolbar>
+    <mat-toolbar-row fxLayout="row">
+        <span> View Article</span> 
+        [Published on {{articleDetails.publication_date | date:'dd/MM/yyyy'}}]
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+        Title: {{articleDetails?.title}}
+    <mat-divider></mat-divider>
+    <div [innerHTML]="articleDetails.content | sanitizeHtml"></div>
+</mat-dialog-content>
+
+<!-- <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>  -->
