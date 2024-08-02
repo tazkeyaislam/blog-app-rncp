@@ -1,39 +1,134 @@
-/* styles.css or component-specific styles */
-.mat-form-field {
+.user-management-card {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease;
+}
+
+.user-management-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #3f51b5;
+}
+
+.add-user-button {
+    text-transform: none;
+    border-radius: 8px;
+}
+
+.filter-container {
+    display: flex;
     width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.filter-input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
 }
 
 table {
     width: 100%;
+    border-collapse: collapse;
 }
 
-mat-card {
-    padding: 20px;
-    margin: 20px 0;
+.header-cell {
+    font-weight: bold;
+    background-color: #e8eaf6;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
 }
 
-/* Deep selectors to change the color of the mat-slide-toggle thumb */
-::ng-deep .mat-slide-toggle.active-status .mat-slide-toggle-thumb {
-    background-color: green !important;
+.data-cell {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    color: #555;
 }
 
-::ng-deep .mat-slide-toggle.inactive-status .mat-slide-toggle-thumb {
-    background-color: red !important;
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.active-badge {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.inactive-badge {
+    background-color: #ff9800;
+    color: #fff;
+}
+
+.action-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active-status {
+    color: green;
+}
+
+.inactive-status {
+    color: red;
 }
 
 @media (max-width: 768px) {
+    .title {
+        font-size: 1.2em;
+    }
 
-    .mat-header-cell,
-    .mat-cell {
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-user-button {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .filter-input {
+        max-width: 100%;
+    }
+
+    .header-cell,
+    .data-cell {
         padding: 8px;
-    }
-
-    .mat-form-field {
-        margin-bottom: 15px;
-    }
-
-    button[mat-icon-button] {
-        min-width: 36px;
-        min-height: 36px;
     }
 }

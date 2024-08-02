@@ -1,39 +1,122 @@
-/* styles.css or component-specific styles */
-.mat-form-field {
+.category-card {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    /* Rounded corners for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for a floating effect */
+    // background-color: #f5f5f5;
+    /* Light background color */
+    transition: box-shadow 0.3s ease;
+    /* Smooth transition for hover effect */
+}
+
+.category-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow on hover */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 1.5em;
+    /* Increased font size for the title */
+    font-weight: bold;
+    color: #3f51b5;
+    /* Primary color */
+}
+
+.add-category-button {
+    text-transform: none;
+    /* Prevent uppercase transformation */
+    border-radius: 8px;
+    /* Rounded button */
+}
+
+.filter-container {
+    display: flex;
     width: 100%;
+
+    // justify-content: flex-end;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.filter-field {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    /* Horizontal scrolling for smaller screens */
 }
 
 table {
     width: 100%;
+    border-collapse: collapse;
+    /* Remove gaps between table borders */
 }
 
-mat-card {
-    padding: 20px;
-    margin: 20px 0;
+.column-header {
+    font-weight: bold;
+    background-color: #e8eaf6;
+    /* Light background for headers */
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    /* Subtle bottom border */
 }
 
-/* Deep selectors to change the color of the mat-slide-toggle thumb */
-::ng-deep .mat-slide-toggle.active-status .mat-slide-toggle-thumb {
-    background-color: green !important;
+.column-cell {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    /* Subtle bottom border */
+    color: #555;
+    /* Darker text color for contrast */
 }
 
-::ng-deep .mat-slide-toggle.inactive-status .mat-slide-toggle-thumb {
-    background-color: red !important;
+.edit-button {
+    color: #3f51b5;
+    /* Primary color for edit button */
+}
+
+.edit-button:hover {
+    background-color: rgba(63, 81, 181, 0.1);
+    /* Light background on hover */
 }
 
 @media (max-width: 768px) {
+    .title {
+        font-size: 1.2em;
+        /* Smaller font size for mobile */
+    }
 
-    .mat-header-cell,
-    .mat-cell {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-category-button {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .column-header,
+    .column-cell {
         padding: 8px;
     }
 
-    .mat-form-field {
-        margin-bottom: 15px;
-    }
-
-    button[mat-icon-button] {
-        min-width: 36px;
-        min-height: 36px;
+    .filter-field {
+        max-width: 100%;
     }
 }

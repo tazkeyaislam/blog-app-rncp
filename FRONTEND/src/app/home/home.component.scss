@@ -27,6 +27,7 @@ html {
 .content {
     text-align: center;
     padding: 40px 20px;
+    border: 1px solid transparent;
 }
 
 .content h1 {
@@ -52,4 +53,44 @@ html {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+/* Flex container for the cards */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Styles for individual cards */
+mat-card.card {
+    background-color: rgb(181, 241, 221);
+    border: 1px solid #004d40;
+    width: 250px;
+    /* Fixed width for each card */
+    height: 200px;
+    /* Fixed height for each card */
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for cards */
+mat-card.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-header {
+    background-color: rgba(0, 77, 64, 0.1);
+}
+
+.filter-form-field {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }

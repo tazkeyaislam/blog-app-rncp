@@ -1,70 +1,95 @@
-/* General styling */
+/* General styles */
 body,
 html {
     margin: 0;
     padding: 0;
+    height: 100%;
     font-family: 'Roboto', sans-serif;
-    background-color: #f5f5f5;
 }
 
 .toolbar {
+    background-color: #004d40;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 16px;
-    background-color: #004d40;
 }
 
 .toolbar-title {
     font-size: 1.5em;
     font-weight: bold;
+    color: #fff;
 }
 
 .spacer {
     flex: 1;
 }
 
-.content {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.content h1 {
-    font-size: 2.5em;
-    color: #004d40;
-    margin-bottom: 20px;
-}
-
-.content p {
-    font-size: 1.2em;
-    color: #004d40;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 .admin-layout {
-    height: 100vh;
     display: flex;
-    flex-direction: row;
+    height: calc(100vh - 64px);
+    /* Adjust based on toolbar height */
+    background-color: #f0f2f5;
 }
 
 .sidebar {
-    border-right: 1px solid #ccc;
-    padding: 10px;
+    background-color: rgb(181, 241, 221);
+
+    /* Dark sidebar for contrast */
+    color: #fff;
+    padding: 16px;
+}
+
+.mat-nav-list .mat-list-item {
+    border-radius: 8px;
+    margin: 8px 0;
+    transition: background-color 0.3s ease;
+}
+
+.mat-nav-list .mat-list-item.active,
+.mat-nav-list .mat-list-item:hover {
+    background-color: #004d40;
+    /* Darker shade for active/hover */
+}
+
+.mat-icon {
+    margin-right: 16px;
+    // color: #004d40;
+}
+
+.nav-text {
+    color: #004d40;
+    font-size: 1.1em;
 }
 
 .main-content {
-    padding: 20px;
+    padding: 24px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    /* Light main content area */
+    border-radius: 8px;
+    margin: 16px;
 }
 
-
-/* sidebar.component.css */
-
-mat-nav-list {
-    width: 100%;
+mat-divider {
+    background-color: #546e7a;
 }
 
-.active-link {
-    font-weight: bold;
-    color: #1976d2;
+@media (max-width: 768px) {
+    .toolbar-title {
+        font-size: 1.2em;
+    }
+
+    .sidebar {
+        padding: 8px;
+    }
+
+    .mat-nav-list .mat-list-item {
+        margin: 4px 0;
+    }
+
+    .main-content {
+        margin: 8px;
+        padding: 16px;
+    }
 }

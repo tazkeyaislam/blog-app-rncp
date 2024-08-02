@@ -1,50 +1,41 @@
 <mat-toolbar color="primary" class="mat-elevation-z8 toolbar">
-    <span class="toolbar-title">Article Hub</span>
-    <span class="spacer"></span>
-    <button mat-icon-button (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-      </button>
-  </mat-toolbar>
-  
-  <!-- <div class="content">
-    <h1>Welcome to Article Hub</h1>
-    <p>Your one-stop destination for insightful articles on a variety of topics. Join us and explore the world of knowledge!</p>
-  </div>
-   -->
-  <div class="admin-layout" fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill>
-    <div fxFlex="20" fxFlex.xs="100" class="sidebar">
-        <mat-nav-list>
-            <a mat-list-item routerLinkActive="active" routerLink="/articleHub/dashboard">
-                <mat-icon>home</mat-icon>
-                <span>Dashboard</span>
-            </a>
-            <a mat-list-item routerLinkActive="active" routerLink="/articleHub/users">
-              <mat-icon>group</mat-icon>
-              <span>Users</span>
-            </a>
-            <a mat-list-item routerLinkActive="active" routerLink="/articleHub/category">
-              <mat-icon>apartment</mat-icon>
-              <span>Category</span>
-            </a>
-            <a mat-list-item routerLinkActive="active" routerLink="/articleHub/article">
-              <mat-icon>storage</mat-icon>
-              <span>Articles</span>
-            </a>
-          <mat-divider></mat-divider>
-            <a mat-list-item routerLinkActive="active" routerLink="/articleHub/help">
-                <mat-icon>help</mat-icon>
-                <span>Help</span>
-            </a>
-            <!-- <a mat-list-item routerLink="/admin/manage-posts">Manage Posts</a>
-            <a mat-list-item routerLink="/admin/add-post">Add Post</a>
-            <a mat-list-item routerLink="/admin/manage-users">Manage Users</a>
-            <a mat-list-item routerLink="/admin/add-category">Add Category</a>
-            <a mat-list-item routerLink="/admin/manage-categories">Manage Categories</a> -->
-          </mat-nav-list>
-    </div>
-    <div fxFlex="80" fxFlex.xs="100" class="main-content">
-      <router-outlet></router-outlet>
-    </div>
+  <span class="toolbar-title">Article Hub</span>
+  <span class="spacer"></span>
+  <button mat-icon-button matTooltip="Logout" (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="admin-layout" fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill>
+  <!-- Sidebar Navigation -->
+  <div fxFlex="20" fxFlex.xs="100" class="sidebar">
+    <mat-nav-list>
+      <a mat-list-item routerLinkActive="active" routerLink="/articleHub/dashboard">
+        <mat-icon>home</mat-icon>
+        <span class="nav-text">Dashboard</span>
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="/articleHub/users">
+        <mat-icon>group</mat-icon>
+        <span class="nav-text">Users</span>
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="/articleHub/category">
+        <mat-icon>category</mat-icon>
+        <span class="nav-text">Category</span>
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="/articleHub/article">
+        <mat-icon>description</mat-icon>
+        <span class="nav-text">Articles</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLinkActive="active" routerLink="/articleHub/help">
+        <mat-icon>help_outline</mat-icon>
+        <span class="nav-text">Help</span>
+      </a>
+    </mat-nav-list>
   </div>
 
-   
+  <!-- Main Content Area -->
+  <div fxFlex="80" fxFlex.xs="100" class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

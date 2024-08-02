@@ -1,5 +1,6 @@
 <mat-toolbar color="primary" class="mat-elevation-z8 toolbar">
-  <span class="toolbar-title">Article Hub
+  <span class="toolbar-title">
+    Article Hub
     <button mat-icon-button [routerLink]="['/']"></button>
   </span>
   <span class="spacer"></span>
@@ -9,24 +10,32 @@
 </mat-toolbar>
 
 <div class="content">
-  <mat-form-field appearance="fill" fxFlex>
+  <mat-form-field appearance="fill" class="filter-form-field">
     <mat-label>Filter</mat-label>
-    <input matInput [(ngModel)] = "searchText" (input)="filteredItem()">
-</mat-form-field>
+    <input matInput [(ngModel)]="searchText" (input)="filteredItem()" />
+  </mat-form-field>
 
-<div class="card-container">
-  <mat-card *ngFor="let card of filteredItem()" class="card" (click)="handleViewAction(card)">
-    <mat-card-header>
-      <mat-card-title>{{card.title}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>Category: {{card.categoryName}}
-      <br>
-      Published on {{card.publication_date | date:'dd-MM-yyyy'}}
-    </mat-card-content>
-  </mat-card>
-</div>
+  <!-- Container for the cards -->
+  <div class="card-container">
+    <!-- Loop through filtered items and create a card for each -->
+    <mat-card
+      *ngFor="let card of filteredItem()"
+      class="card"
+      (click)="handleViewAction(card)"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ card.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Category: {{ card.categoryName }}
+        <br />
+        Published on {{ card.publication_date | date: 'dd-MM-yyyy' }}
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-<h1 *ngIf="filteredItem()?.length === 0">Nothing to show</h1>
+  <!-- Display message when there are no items to show -->
+  <h1 *ngIf="filteredItem()?.length === 0">Nothing to show</h1>
 </div>
 
 <mat-toolbar class="footer">
