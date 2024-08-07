@@ -1,30 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../services/article.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GlobalConstants } from '../shared/global-constants';
 import { ArticleDetailsComponent } from '../article-details/article-details.component';
+import { UserService } from '../services/user.service';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   responseMessage: any;
-  articles: any;
+  articles: any[] = [];
   searchText: string = ' ';
+  categories: any[] = [];
+  selectedCategoryId: number | null = null;
 
   constructor(
     private articleService: ArticleService,
     private dialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private userService: UserService,
+    private categoryService: CategoryService) {
     this.tableData();
+    this.fetchCategories();
+  }
+
+  ngOnInit(): void {
+    //if token exists on localstorage
+    if (localStorage.getItem('token') != null) {
+      this.userService.checkToken().subscribe((response: any) => {
+        this.router.navigate(['/articleHub/dashboard'])
+      }, (error: any) => {
+        console.log(error);
+      }
+      )
+    }
   }
 
   tableData() {
-    this.articleService.getAllPublishedArticle().subscribe((response: any) => {
+    this.articleService.getPublicPublishedArticles().subscribe((response: any) => {
       this.articles = response;
     }, (error: any) => {
       console.log(error);
@@ -39,12 +58,11 @@ export class HomeComponent {
     )
   }
 
-  filteredItem(): any {
-    return this.articles?.filter(
-      (item: {
-        categoryName: string; title: string;
-      }) => item.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        item.categoryName.toLowerCase().includes(this.searchText.toLowerCase())
+  filteredItem(): any[] {
+    return this.articles.filter((item: { categoryId: number; categoryName: string; title: string }) =>
+      (!this.selectedCategoryId || item.categoryId === this.selectedCategoryId) && // Filter by selected category
+      (item.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        item.categoryName.toLowerCase().includes(this.searchText.toLowerCase()))
     );
   }
 
@@ -62,4 +80,24 @@ export class HomeComponent {
     });
   }
 
+
+  fetchCategories() {
+    this.categoryService.getAllCategory().subscribe((res: any) => {
+      this.categories = res;
+    }, (error: any) => {
+      console.log(error);
+      if (error.error?.message) {
+        this.responseMessage = error.error?.message;
+      }
+      else {
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      //snackbar
+    })
+  }
+
+  filterByCategory(categoryId: number | null) {
+    this.selectedCategoryId = categoryId;
+  }
 }
+

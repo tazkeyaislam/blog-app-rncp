@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SanitizeHtmlPipe } from '../pipe/sanitize-html.pipe';
+import { MenuItems } from './menu-items';
 
 
 
@@ -9,6 +10,7 @@ import { SanitizeHtmlPipe } from '../pipe/sanitize-html.pipe';
   imports: [
     CommonModule
   ],
-  exports: [SanitizeHtmlPipe]
+  exports: [SanitizeHtmlPipe],
+  providers: [MenuItems]
 })
 export class SharedModule { }

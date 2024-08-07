@@ -29,9 +29,9 @@
         <button mat-raised-button color="primary" [disabled]="!(loginForm.valid && loginForm.dirty)" type="submit">
           Login
         </button>
-        <button mat-button color="accent" class="home-link" (click)="onBack()">
-          <span>Back</span>
-        </button>
+        <span>Not a member yet? 
+          <button mat-icon-button [routerLink]="['/signup']" class="link-button" aria-label="Login">Sign up</button>
+        </span>
       </div>
     </form>
   </div>

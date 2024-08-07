@@ -15,6 +15,7 @@ import { TokenInterceptor } from './services/token.interceptor';
 import { QuillModule } from 'ngx-quill';
 import { SharedModule } from './shared/shared.module';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -36,6 +37,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HomeComponent,
     LoginComponent,
     ArticleDetailsComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

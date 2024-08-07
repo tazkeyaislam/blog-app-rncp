@@ -15,37 +15,59 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      component: DashboardComponent
+      component: DashboardComponent,
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin', 'user']
+      }
     },
     {
       path: 'dashboard',
       component: DashboardComponent,
-      canActivate: [RouterGuardService]
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin', 'user']
+      }
     },
     {
       path: 'users',
       component: ManageUsersComponent,
-      canActivate: [RouterGuardService]
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin']
+      }
     },
     {
       path: 'category',
       component: ManageCategoryComponent,
-      canActivate: [RouterGuardService]
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin', 'user']
+      }
     },
     {
       path: 'article',
       component: ManageArticleComponent,
-      canActivate: [RouterGuardService]
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin', 'user']
+      }
     },
     {
       path: 'help',
       component: HelpDetailsComponent,
-      canActivate: [RouterGuardService]
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin', 'user']
+      }
     },
     {
       path: '**',
       component: DashboardComponent,
-      canActivate: [RouterGuardService]
+      canActivate: [RouterGuardService],
+      data: {
+        expectedRole: ['admin', 'user']
+      }
     }
 
 

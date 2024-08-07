@@ -11,6 +11,14 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
+  signup(data: any) {
+    return this.httpClient.post(this.url +
+      "/appUser/signup", data, {
+      headers: new HttpHeaders().set('Content-Type', "application/json")
+    }
+    )
+  }
+
   login(data: any) {
     return this.httpClient.post(this.url +
       "/appUser/login", data, {
@@ -33,17 +41,23 @@ export class UserService {
     )
   }
 
-  updateUser(data: any) {
-    return this.httpClient.post(this.url +
-      "/appUser/updateUser", data, {
+  updateUserStatus(data: any) {
+    return this.httpClient.patch(this.url +
+      "/appUser/updateUserStatus", data, {
       headers: new HttpHeaders().set('Content-Type', "application/json")
     }
     )
   }
 
-  updateUserStatus(data: any) {
+  checkToken() {
+    return this.httpClient.get(this.url +
+      "/appUser/checkToken"
+    )
+  }
+
+  changePassword(data: any) {
     return this.httpClient.post(this.url +
-      "/appUser/updateUserStatus", data, {
+      "/appUser/changePassword", data, {
       headers: new HttpHeaders().set('Content-Type', "application/json")
     }
     )

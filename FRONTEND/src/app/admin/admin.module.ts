@@ -10,7 +10,6 @@ import { MaterialModule } from '../shared/material.module';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { UsersComponent } from './dialog/users/users.component';
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
 import { CategoryComponent } from './dialog/category/category.component';
 import { QuillModule } from 'ngx-quill';
@@ -18,6 +17,9 @@ import { SharedModule } from '../shared/shared.module';
 import { ManageArticleComponent } from './manage-article/manage-article.component';
 import { ArticlesComponent } from './dialog/articles/articles.component';
 import { ViewArticleComponent } from './dialog/view-article/view-article.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { ChangePasswordComponent } from './dialog/change-password/change-password.component';
 
 
 @NgModule({
@@ -28,12 +30,14 @@ import { ViewArticleComponent } from './dialog/view-article/view-article.compone
     HelpDetailsComponent,
     ConfirmationComponent,
     ManageUsersComponent,
-    UsersComponent,
     ManageCategoryComponent,
     CategoryComponent,
     ManageArticleComponent,
     ArticlesComponent,
-    ViewArticleComponent
+    ViewArticleComponent,
+    SidebarComponent,
+    HeaderComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

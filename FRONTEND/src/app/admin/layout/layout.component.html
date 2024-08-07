@@ -1,15 +1,16 @@
 <mat-toolbar color="primary" class="mat-elevation-z8 toolbar">
   <span class="toolbar-title">Article Hub</span>
   <span class="spacer"></span>
-  <button mat-icon-button matTooltip="Logout" (click)="logout()">
+  <!-- <button mat-icon-button matTooltip="Logout" (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
-  </button>
+  </button> -->
+  <app-header></app-header>
 </mat-toolbar>
 
 <div class="admin-layout" fxLayout="row" fxLayoutAlign="start stretch" fxFlexFill>
-  <!-- Sidebar Navigation -->
   <div fxFlex="20" fxFlex.xs="100" class="sidebar">
-    <mat-nav-list>
+    <app-sidebar></app-sidebar>
+    <!-- <mat-nav-list>
       <a mat-list-item routerLinkActive="active" routerLink="/articleHub/dashboard">
         <mat-icon>home</mat-icon>
         <span class="nav-text">Dashboard</span>
@@ -31,10 +32,8 @@
         <mat-icon>help_outline</mat-icon>
         <span class="nav-text">Help</span>
       </a>
-    </mat-nav-list>
+    </mat-nav-list> -->
   </div>
-
-  <!-- Main Content Area -->
   <div fxFlex="80" fxFlex.xs="100" class="main-content">
     <router-outlet></router-outlet>
   </div>

@@ -5,10 +5,11 @@ create table appuser(
     password varchar(250),
     status varchar(20),
     isDeletable varchar(20),
-    UNIQUE (email)
+    UNIQUE (email),
+    role VARCHAR(20),
 );
 
-insert into appuser (name, email, password, status, isDeletable) values ('Admin','admin@gmail.com', 'admin', 'true', 'false');
+insert into appuser (name, email, password, status, isDeletable) values ('Admin','admin@gmail.com', 'admin', 'true', 'false','admin');
 
 create table category(
     id int primary key AUTO_INCREMENT,
@@ -21,5 +22,7 @@ create table article(
     content LONGTEXT NOT NULL,
     categoryId integer NOT NULL,
     publication_date DATE,
-    status varchar(20)
+    status varchar(20),
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES appuser(id)
 );

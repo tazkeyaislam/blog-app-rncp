@@ -34,12 +34,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
           //if the status code is 401 (Unauthorized) or 403 (Forbidden)
           if (err.status === 401 || err.status === 403) {
-            if (this.router.url === '/login') {
-            }
-            else {
-              localStorage.removeItem('token');
-              this.router.navigate(['/'])
-            }
+            // if (this.router.url === '/') {
+            // }
+            // else {
+            localStorage.clear();
+            this.router.navigate(['/']);
+            // }
           }
         }
         return throwError(err);
