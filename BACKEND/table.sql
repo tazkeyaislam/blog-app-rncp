@@ -26,3 +26,33 @@ create table article(
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES appuser(id)
 );
+
+CREATE TABLE article_like(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    article_id INT NOT NULL,
+    user_id INT NOT NULL,
+    like_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(article_id, user_id),
+    FOREIGN KEY (article_id) REFERENCES article(id),
+    FOREIGN KEY (user_id) REFERENCES appuser(id)
+);
+
+CREATE TABLE comment(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    article_id INT NOT NULL,
+    user_id INT NOT NULL,
+    comment_text LONGTEXT NOT NULL,
+    comment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (article_id) REFERENCES article(id),
+    FOREIGN KEY (user_id) REFERENCES appuser(id)
+);
+
+CREATE TABLE notification(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    notification_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES appuser(id)
+);
+

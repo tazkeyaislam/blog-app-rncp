@@ -8,17 +8,16 @@ html {
 }
 
 .toolbar {
-    background-color: #004d40;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 16px;
+    background-color: #000000;
 }
 
 .toolbar-title {
     font-size: 1.5em;
     font-weight: bold;
-    color: #fff;
 }
 
 .spacer {
@@ -29,11 +28,11 @@ html {
     display: flex;
     height: calc(100vh - 64px);
     /* Adjust based on toolbar height */
-    background-color: #f0f2f5;
+    // background-color: #f0f2f5;
 }
 
 .sidebar {
-    background-color: rgb(181, 241, 221);
+    background-color: #f0f0f0;
 
     /* Dark sidebar for contrast */
     color: #fff;

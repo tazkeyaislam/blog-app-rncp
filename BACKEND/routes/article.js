@@ -41,8 +41,6 @@ router.delete('/admin/deleteArticle/:id', auth.authenticateToken, checkRole.chec
 });
 
 
-
-
 // Authenticated users can get their articles
 router.get('/myArticles', auth.authenticateToken, (req, res) => {
     const userId = res.locals.id;
@@ -138,10 +136,11 @@ router.delete('/deleteArticle/:id', auth.authenticateToken, (req, res) => {
 });
 
 
-// Anyone can get all published articles with the user's email
 router.get('/publicPublishedArticles', (req, res) => {
     const query = `
-        SELECT a.id, a.title, a.content, a.status, a.publication_date,c.id AS categoryId, c.name AS categoryName, u.email AS userEmail
+        SELECT a.id, a.title, a.content, a.status, a.publication_date,c.id AS categoryId, c.name AS categoryName, u.email AS userEmail,
+        (SELECT COUNT(*) FROM article_like WHERE article_id = a.id) AS likeCount,
+        (SELECT COUNT(*) FROM comment WHERE article_id = a.id) AS commentCount
         FROM article AS a
         INNER JOIN category AS c ON a.categoryId = c.id
         INNER JOIN appuser AS u ON a.user_id = u.id
@@ -157,29 +156,136 @@ router.get('/publicPublishedArticles', (req, res) => {
     });
 });
 
-// router.get('/getArticlesByCategory/:categoryId', (req, res) => {
-//     const categoryId = req.params.categoryId;
-//     const query = `
-//         SELECT 
-//             a.id as articleId,
-//             a.title,
-//             a.content,
-//             a.publication_date
-//         FROM 
-//             article AS a
-//         WHERE 
-//             a.categoryId = ?
-//             AND a.status = 'published'
-//         ORDER BY 
-//             a.publication_date DESC;
-//     `;
+router.post('/commentArticle/:articleId', auth.authenticateToken, (req, res) => {
+    const articleId = req.params.articleId;
+    const userId = res.locals.id;
+    const { commentText } = req.body;
 
-//     connection.query(query, [categoryId], (err, results) => {
-//         if (!err) {
-//             return res.status(200).json(results);
-//         } else {
-//             return res.status(500).json(err);
-//         }
-//     });
-// });
+    if (!commentText) {
+        return res.status(400).json({ message: "Comment text is required" });
+    }
+
+    // Insert comment
+    const insertCommentQuery = 'INSERT INTO comment (article_id, user_id, comment_text) VALUES (?, ?, ?)';
+    connection.query(insertCommentQuery, [articleId, userId, commentText], (err, result) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        return res.status(200).json({ message: "Comment added successfully" });
+    });
+});
+
+
+router.get('/getComments/:articleId', (req, res) => {
+    const articleId = req.params.articleId;
+
+    const getCommentsQuery = `
+        SELECT c.comment_text, c.comment_date, u.name AS user_name
+        FROM comment AS c
+        INNER JOIN appuser AS u ON c.user_id = u.id
+        WHERE c.article_id = ?
+        ORDER BY c.comment_date DESC
+    `;
+
+    connection.query(getCommentsQuery, [articleId], (err, results) => {
+        if (err) {
+            return res.status(500).json(err);
+        }
+        return res.status(200).json(results);
+    });
+});
+
+//Like an article
+router.post('/likeArticle/:articleId', auth.authenticateToken, (req, res) => {
+    const articleId = req.params.articleId;
+    const userId = res.locals.id;
+
+    const query = 'INSERT INTO article_like (article_id, user_id) VALUES (?, ?)';
+
+    connection.query(query, [articleId, userId], (err, results) => {
+        if (!err) {
+            return res.status(200).json({ message: "Article liked successfully" });
+        } else {
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(400).json({ message: "You have already liked this article" });
+            }
+            return res.status(500).json(err);
+        }
+    });
+});
+
+// Unlike an article
+router.delete('/unlikeArticle/:articleId', auth.authenticateToken, (req, res) => {
+    const articleId = req.params.articleId;
+    const userId = res.locals.id;
+
+    const query = 'DELETE FROM article_like WHERE article_id = ? AND user_id = ?';
+
+    connection.query(query, [articleId, userId], (err, results) => {
+        if (!err) {
+            if (results.affectedRows === 0) {
+                return res.status(404).json({ message: "You haven't liked this article yet" });
+            }
+            return res.status(200).json({ message: "Article unliked successfully" });
+        } else {
+            return res.status(500).json(err);
+        }
+    });
+});
+
+// Get like count for an article
+router.get('/likeCount/:articleId', (req, res) => {
+    const articleId = req.params.articleId;
+
+    const query = 'SELECT COUNT(*) AS likeCount FROM article_like WHERE article_id = ?';
+
+    connection.query(query, [articleId], (err, results) => {
+        if (!err) {
+            return res.status(200).json({ likeCount: results[0].likeCount });
+        } else {
+            return res.status(500).json(err);
+        }
+    });
+});
+
+// Get articles liked by the authenticated user
+router.get('/myLikedArticles', auth.authenticateToken, (req, res) => {
+    const userId = res.locals.id;
+
+    const query = `
+        SELECT a.id, a.title, a.content, a.status, a.publication_date, c.name AS categoryName, u.email AS userEmail
+        FROM article AS a
+        INNER JOIN article_like AS al ON a.id = al.article_id
+        INNER JOIN category AS c ON a.categoryId = c.id
+        INNER JOIN appuser AS u ON a.user_id = u.id
+        WHERE al.user_id = ?
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (!err) {
+            return res.status(200).json(results);
+        } else {
+            return res.status(500).json(err);
+        }
+    });
+});
+
+router.get('/checkIfLiked/:articleId', auth.authenticateToken, (req, res) => {
+    const articleId = req.params.articleId;
+    const userId = res.locals.id;
+
+    const query = 'SELECT COUNT(*) AS liked FROM article_like WHERE article_id = ? AND user_id = ?';
+
+    connection.query(query, [articleId, userId], (err, results) => {
+        if (!err) {
+            return res.status(200).json(results[0].liked > 0);
+        } else {
+            return res.status(500).json(err);
+        }
+    });
+});
+
+
+
+
 module.exports = router;

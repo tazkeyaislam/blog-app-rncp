@@ -99,5 +99,14 @@ export class HomeComponent implements OnInit {
   filterByCategory(categoryId: number | null) {
     this.selectedCategoryId = categoryId;
   }
+
+  getAvatarColor(email: string): string {
+    let hash = 0;
+    for (let i = 0; i < email.length; i++) {
+      hash = email.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const color = `hsl(${hash % 360}, 60%, 80%)`;
+    return color;
+  }
 }
 

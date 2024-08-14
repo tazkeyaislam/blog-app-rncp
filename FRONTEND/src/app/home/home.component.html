@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="mat-elevation-z8 toolbar">
   <span class="toolbar-title">
-    Article Hub
+    JOURNAL
     <button mat-icon-button [routerLink]="['/']"></button>
   </span>
   <span class="spacer"></span>
@@ -15,9 +15,10 @@
   </button>
 </mat-toolbar>
 
-<div class="content">
+<div>
+  <div class="content">
   <div class="category-buttons">
-    <button mat-button *ngFor="let category of categories" 
+    <button mat-button *ngFor="let category of categories" class="category-button" 
             [ngClass]="{'active': selectedCategoryId === category.id}"
             (click)="filterByCategory(category.id)">
       {{ category.name }}
@@ -30,29 +31,34 @@
     <mat-label>Filter</mat-label>
     <input matInput [(ngModel)]="searchText" (input)="filteredItem()" />
   </mat-form-field>
+  <div style="display: flex; justify-content: center;">
+    <mat-icon>date_range</mat-icon>
+    <h2>Recent posts</h2>
+  </div>
+</div>
 
-  <!-- Container for the cards -->
   <div class="card-container">
-    <mat-card
-      *ngFor="let card of filteredItem()"
-      class="card"
-      (click)="handleViewAction(card)"
-    >
-      <mat-card-header>
-        <mat-card-title>{{ card.title }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        Category: {{ card.categoryName }}
-        <br />
-        Published on {{ card.publication_date | date: 'dd-MM-yyyy' }}
-        Email: {{ card.userEmail }}
-        <br />
-      </mat-card-content>
+    <mat-card *ngFor="let card of filteredItem()" class="card" (click)="handleViewAction(card)">
+      <div class="card-content">
+        <div class="card-email">
+          <div class="avatar" [ngStyle]="{'background-color': getAvatarColor(card.userEmail)}">
+            {{ card.userEmail.charAt(0).toUpperCase() }}
+        </div>
+          {{ card.userEmail }}
+        </div>
+        <div class="card-category">
+          {{ card.categoryName }}
+        </div>
+        <div class="card-title">
+          {{ card.title }}
+        </div>
+        <div class="card-date">
+          {{ card.publication_date | date: 'dd MMM, yyyy' }}
+        </div>
+      </div>
     </mat-card>
   </div>
-
-  <!-- Display message when there are no items to show -->
-  <h1 *ngIf="filteredItem()?.length === 0">Nothing to show</h1>
+    <h1 *ngIf="filteredItem()?.length === 0">Nothing to show</h1>
 </div>
 
 <mat-toolbar class="footer">
